@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/vitals",
+      "handler": "vitals.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/vitals/count",
+      "handler": "vitals.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/vitals/:id",
+      "handler": "vitals.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/vitals",
+      "handler": "vitals.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/vitals/:id",
+      "handler": "vitals.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/vitals/:id",
+      "handler": "vitals.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

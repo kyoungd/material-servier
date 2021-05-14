@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "studies",
+  "info": {
+    "name": "Study"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "study_type": {
+      "type": "string"
+    },
+    "symbol": {
+      "type": "string"
+    },
+    "period": {
+      "type": "string"
+    },
+    "published_on": {
+      "type": "datetime"
+    },
+    "data": {
+      "type": "json"
+    }
+  }
+}

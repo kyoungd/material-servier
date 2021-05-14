@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "site_finvizs",
+  "info": {
+    "name": "SiteFinviz",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "code": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "statistics": {
+      "type": "json"
+    },
+    "lastLookup": {
+      "type": "datetime"
+    },
+    "news": {
+      "type": "json"
+    },
+    "siteSummary": {
+      "type": "text"
+    },
+    "lastNews": {
+      "model": "article"
+    }
+  }
+}

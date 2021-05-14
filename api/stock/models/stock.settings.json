@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "stocks",
+  "info": {
+    "name": "Stock",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "symbol": {
+      "type": "string"
+    },
+    "quote_date": {
+      "type": "datetime"
+    },
+    "open": {
+      "type": "decimal"
+    },
+    "close": {
+      "type": "decimal"
+    },
+    "high": {
+      "type": "decimal"
+    },
+    "low": {
+      "type": "decimal"
+    },
+    "dividend": {
+      "type": "float"
+    },
+    "stock_split": {
+      "type": "float"
+    },
+    "volume": {
+      "type": "float"
+    },
+    "period": {
+      "type": "string"
+    }
+  }
+}

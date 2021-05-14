@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "site_benzingas",
+  "info": {
+    "name": "SiteBenzinga",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "code": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "lastLookup": {
+      "type": "datetime"
+    },
+    "news": {
+      "type": "json"
+    },
+    "siteSummary": {
+      "type": "text"
+    },
+    "lastNews": {
+      "model": "article"
+    }
+  }
+}

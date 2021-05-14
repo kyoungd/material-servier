@@ -1,0 +1,68 @@
+{
+  "kind": "collectionType",
+  "collectionName": "settings",
+  "info": {
+    "name": "Setting"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "sr_1w": {
+      "type": "boolean",
+      "default": true
+    },
+    "sr_1w_color": {
+      "type": "string"
+    },
+    "sr_1w_line": {
+      "type": "string"
+    },
+    "sr_1d": {
+      "type": "boolean",
+      "default": true
+    },
+    "sr_1d_color": {
+      "type": "string"
+    },
+    "sr_1d_line": {
+      "type": "string"
+    },
+    "sr_4h": {
+      "type": "boolean",
+      "default": false
+    },
+    "sr_4h_color": {
+      "type": "string"
+    },
+    "sr_4h_line": {
+      "type": "string"
+    },
+    "sr_1h": {
+      "type": "boolean",
+      "default": false
+    },
+    "sr_1h_color": {
+      "type": "string"
+    },
+    "sr_1h_line": {
+      "type": "string"
+    },
+    "gapfilll_overnight": {
+      "type": "boolean",
+      "default": true
+    },
+    "gapfill_overnight_color": {
+      "type": "string"
+    },
+    "gapfill_days": {
+      "type": "boolean",
+      "default": false
+    },
+    "gapfill_days_color": {
+      "type": "string"
+    }
+  }
+}

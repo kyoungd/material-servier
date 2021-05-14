@@ -1,0 +1,152 @@
+{
+  "kind": "collectionType",
+  "collectionName": "statistics",
+  "info": {
+    "name": "Statistic",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "symbol": {
+      "type": "string"
+    },
+    "published_on": {
+      "type": "date"
+    },
+    "info": {
+      "type": "json"
+    },
+    "actions": {
+      "type": "json"
+    },
+    "splits": {
+      "type": "json"
+    },
+    "financials": {
+      "type": "json"
+    },
+    "quarterly_financials": {
+      "type": "json"
+    },
+    "major_holders": {
+      "type": "json"
+    },
+    "institutional_holders": {
+      "type": "json"
+    },
+    "balance_sheet": {
+      "type": "json"
+    },
+    "quarterly_balance_sheet": {
+      "type": "json"
+    },
+    "earnings": {
+      "type": "json"
+    },
+    "quarterly_earnings": {
+      "type": "json"
+    },
+    "sustainability": {
+      "type": "json"
+    },
+    "recommendations": {
+      "type": "json"
+    },
+    "calendar": {
+      "type": "json"
+    },
+    "options": {
+      "type": "json"
+    },
+    "option_chain": {
+      "type": "json"
+    },
+    "b_info": {
+      "type": "boolean",
+      "default": false
+    },
+    "b_actions": {
+      "type": "boolean",
+      "default": false
+    },
+    "b_dividends": {
+      "type": "boolean",
+      "default": false
+    },
+    "b_splits": {
+      "type": "boolean",
+      "default": false
+    },
+    "b_financials": {
+      "type": "boolean"
+    },
+    "b_quarterly_financials": {
+      "type": "boolean"
+    },
+    "b_major_holders": {
+      "type": "boolean",
+      "default": false
+    },
+    "b_institutional_holders": {
+      "type": "boolean",
+      "default": false
+    },
+    "b_balance_sheet": {
+      "type": "boolean",
+      "default": false
+    },
+    "b_quarterly_balance_sheet": {
+      "type": "boolean",
+      "default": false
+    },
+    "b_cashflow": {
+      "type": "boolean",
+      "default": false
+    },
+    "b_quarterly_cashflow": {
+      "type": "boolean",
+      "default": false
+    },
+    "b_sustainability": {
+      "type": "boolean",
+      "default": false
+    },
+    "b_recommendations": {
+      "type": "boolean",
+      "default": false
+    },
+    "b_calendar": {
+      "type": "boolean",
+      "default": false
+    },
+    "b_options": {
+      "type": "boolean",
+      "default": false
+    },
+    "b_everything": {
+      "type": "boolean",
+      "default": false
+    },
+    "dividends": {
+      "type": "json"
+    },
+    "cashflow": {
+      "type": "json"
+    },
+    "quarterly_cashflow": {
+      "type": "json"
+    },
+    "b_earnings": {
+      "type": "boolean",
+      "default": false
+    },
+    "b_quarterly_earnings": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

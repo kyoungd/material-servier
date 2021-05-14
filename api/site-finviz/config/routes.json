@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/site-finvizs",
+      "handler": "site-finviz.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/site-finvizs/count",
+      "handler": "site-finviz.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/site-finvizs/:id",
+      "handler": "site-finviz.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/site-finvizs",
+      "handler": "site-finviz.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/site-finvizs/:id",
+      "handler": "site-finviz.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/site-finvizs/:id",
+      "handler": "site-finviz.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

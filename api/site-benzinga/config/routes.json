@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/site-benzingas",
+      "handler": "site-benzinga.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/site-benzingas/count",
+      "handler": "site-benzinga.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/site-benzingas/:id",
+      "handler": "site-benzinga.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/site-benzingas",
+      "handler": "site-benzinga.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/site-benzingas/:id",
+      "handler": "site-benzinga.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/site-benzingas/:id",
+      "handler": "site-benzinga.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

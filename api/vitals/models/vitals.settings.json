@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "vitals",
+  "info": {
+    "name": "Vitals",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "symbol": {
+      "type": "string"
+    },
+    "sector": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "text"
+    },
+    "average_volume_10days": {
+      "type": "float"
+    },
+    "short_volume": {
+      "type": "float"
+    },
+    "name": {
+      "type": "string"
+    },
+    "short_percent": {
+      "type": "float"
+    },
+    "float_volume": {
+      "type": "float"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "major_investor": {
+      "type": "integer"
+    },
+    "published_on": {
+      "type": "date"
+    }
+  }
+}
