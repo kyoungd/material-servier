@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  db:
+    image: db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: Service$$11
+      POSTGRES_USER: admin
+    networks:
+      - level100
+
+  material-server:
+    image: material-server
+    ports:
+      - "1337:1337"
+    networks:
+      - level100
+    environment:
+      - DATABASE_CLIENT=postgres
+      - DATABASE_NAME=webscrapper
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+      - DATABASE_USERNAME=admin
+      - DATABASE_PASSWORD=Service$$11
+    depends_on:
+      - db
+
+networks:
+  level100:
+    driver: bridge

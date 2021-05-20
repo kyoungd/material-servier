@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "symbols",
+  "info": {
+    "name": "symbol",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "symbol": {
+      "type": "string"
+    },
+    "last_searched_on": {
+      "type": "datetime"
+    },
+    "last_vital_update": {
+      "type": "datetime"
+    },
+    "is_reload_vital": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_rule_active": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

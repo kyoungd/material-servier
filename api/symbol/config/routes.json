@@ -1,0 +1,60 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/symbols",
+      "handler": "symbol.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/symbols/count",
+      "handler": "symbol.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/symbols/twitter_rules",
+      "handler": "symbol.twitter_rules",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/symbols/:id",
+      "handler": "symbol.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/symbols",
+      "handler": "symbol.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/symbols/:id",
+      "handler": "symbol.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/symbols/:id",
+      "handler": "symbol.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

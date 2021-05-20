@@ -1,0 +1,65 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tweets",
+  "info": {
+    "name": "Tweet",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "tweet_text": {
+      "type": "text"
+    },
+    "author_id": {
+      "type": "string"
+    },
+    "tweet_id": {
+      "type": "string"
+    },
+    "retweet_count": {
+      "type": "integer"
+    },
+    "reply_count": {
+      "type": "integer"
+    },
+    "like_count": {
+      "type": "integer"
+    },
+    "quote_count": {
+      "type": "integer"
+    },
+    "user_id": {
+      "type": "string"
+    },
+    "user_name": {
+      "type": "string"
+    },
+    "sentiment_score": {
+      "type": "float"
+    },
+    "is_analyze_sentiment": {
+      "type": "boolean",
+      "default": true
+    },
+    "sentiment_rated": {
+      "type": "enumeration",
+      "enum": [
+        "positive",
+        "negative",
+        "neutral",
+        "not_rated"
+      ],
+      "default": "not_rated"
+    },
+    "symbol": {
+      "type": "string"
+    },
+    "tweet_json": {
+      "type": "json"
+    }
+  }
+}

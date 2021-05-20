@@ -40,6 +40,13 @@
     },
     "period": {
       "type": "string"
+    },
+    "last_search_at": {
+      "type": "datetime"
+    },
+    "is_realtime_tweet": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
