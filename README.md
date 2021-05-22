@@ -1,6 +1,6 @@
 # ---------- DOCKER COMMANDS
 
-sudo docker run --name postgres -e POSTGRES_PASSWORD=Service$11 -p:5432:5432 postgres
+sudo docker run --name db -e POSTGRES_PASSWORD=Service$11 -p 5432:5432 postgres
 
 docker image ls
 docker container ls
@@ -15,15 +15,21 @@ docker system prune
 
 # ---------- POSTGRESQL DATABASE SERVER
 
+sudo docker run -p 5432:5432 db
+
 ## connect to local postgres
 
-psql -p5432 -d "postgres"
+psql -p 5432 -d "postgres"
 
 ## postgres service:
 
 systemctl stop postgresql
 systemctl start postgresql
 systemctl status postgresql
+
+sudo service postgresql start
+sudo service postgresql stop
+sudo service postgresql restart
 
 ## run bash command in docker
 
@@ -32,6 +38,7 @@ docker exec -it <container-id> bash
 ## connect to docker postgres
 
 psql -U postgres
+\du
 
 ## create admin user
 
@@ -48,8 +55,12 @@ cat webscrapper-db.sql | sudo docker exec -i ab75a508f3e4 /usr/bin/psql -h local
 
 docker build -t material-server .
 docker run -it -p 1337:1337 material-server
-sudo
 
 # ---------- MATERIAL-SERVER + POSTGRES
 
 sudo docker-compose up
+
+# ---------- MATERIAL-API IMAGE
+
+sudo docker build -t material-api .
+docker tun -it -p 5000:5000 material-api
