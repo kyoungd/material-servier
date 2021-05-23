@@ -36,8 +36,6 @@ services:
       - "5000:5000"
     networks:
       - level100
-    environment:
-      - DATABASE_HOST=db
     depends_on:
       - material-server
 

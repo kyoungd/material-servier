@@ -3,7 +3,7 @@ const { default: createStrapi } = require('strapi');
 const { sanitizeEntity } = require('strapi-utils');
 
 
-const ENDPOINT = "http://localhost:5000"
+const ENDPOINT = "http://material-api:5000"
 
 async function getThinkScript(scriptName, symbol, period) {
     try {
