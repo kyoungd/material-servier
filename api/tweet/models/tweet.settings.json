@@ -60,6 +60,9 @@
     },
     "tweet_json": {
       "type": "json"
+    },
+    "tweet_dt": {
+      "type": "datetime"
     }
   }
 }

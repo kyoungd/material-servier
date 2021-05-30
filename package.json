@@ -13,7 +13,10 @@
   "devDependencies": {},
   "dependencies": {
     "axios": "^0.21.1",
+    "kafkajs": "^1.15.0",
     "knex": "0.21.18",
+    "lodash": "^4.17.21",
+    "momentjs": "^2.0.0",
     "pg": "8.5.1",
     "strapi": "3.5.4",
     "strapi-admin": "3.5.4",

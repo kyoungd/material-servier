@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tweet_summaries",
+  "info": {
+    "name": "TweetSummary"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "symbol": {
+      "type": "string"
+    },
+    "tweet_dt": {
+      "type": "datetime"
+    },
+    "tweet_type": {
+      "type": "enumeration",
+      "enum": [
+        "min5",
+        "min10",
+        "min30",
+        "hour1",
+        "hour4",
+        "day1"
+      ]
+    },
+    "tweet_count": {
+      "type": "integer"
+    },
+    "tweet_score": {
+      "type": "float"
+    }
+  }
+}

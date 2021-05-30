@@ -27,6 +27,16 @@
     "is_rule_active": {
       "type": "boolean",
       "default": true
+    },
+    "tweet_is_active": {
+      "type": "boolean",
+      "default": false
+    },
+    "tweet_searched_on": {
+      "type": "datetime"
+    },
+    "tweet_tweeted_on": {
+      "type": "datetime"
     }
   }
 }

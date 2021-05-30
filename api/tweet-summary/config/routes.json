@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/tweet-summaries",
+      "handler": "tweet-summary.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/tweet-summaries/count",
+      "handler": "tweet-summary.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/tweet-summaries/:id",
+      "handler": "tweet-summary.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/tweet-summaries",
+      "handler": "tweet-summary.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/tweet-summaries/:id",
+      "handler": "tweet-summary.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/tweet-summaries/:id",
+      "handler": "tweet-summary.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
