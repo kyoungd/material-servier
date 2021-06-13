@@ -12,7 +12,8 @@
   },
   "attributes": {
     "symbol": {
-      "type": "string"
+      "type": "string",
+      "unique": true
     },
     "last_searched_on": {
       "type": "datetime"
@@ -32,7 +33,7 @@
       "type": "boolean",
       "default": false
     },
-    "tweet_searched_on": {
+    "tweet_summary_on": {
       "type": "datetime"
     },
     "tweet_tweeted_on": {

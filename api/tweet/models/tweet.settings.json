@@ -56,10 +56,12 @@
       "default": "not_rated"
     },
     "symbol": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "tweet_json": {
-      "type": "json"
+      "type": "json",
+      "private": true
     },
     "tweet_dt": {
       "type": "datetime"

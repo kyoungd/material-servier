@@ -1,7 +1,7 @@
 'use strict';
 
 const moment = require('moment');
-const { getTweets, summarizeTweets } = require('../util');
+const { connectKafka, getTweets, summarizeTweets } = require('../util');
 
 // const { default: createStrapi } = require('strapi');
 
@@ -22,18 +22,25 @@ module.exports = {
     // every 5 minutes, twitter
     // ----------------------------------------------------------------------
     try {
-      const today = new moment();
-      if (true || today.minute() % 5 == 0) {
-        const sinceDt = today.subtract(3, 'days');
-        const rules = await strapi.services.symbol.find({
-          last_searched_on_gte: sinceDt.format('YYYY-MM-DD HH:mm:ss')
-        }, ['symbol', 'tweet_tweeted_on']);
+      const today = moment();
+      // const yesterday = today.clone().subtract(1, 'days');
+      // const result1 = await strapi.query('tweet').find({
+      //   'symbol': 'TSLA',
+      //   'tweet_dt_gte': yesterday.format('YYYY-MM-DD HH:mm:ss'),
+      //   'tweet_dt_lt': today.format('YYYY-MM-DD HH:mm:ss')
+      // });
+
+      if (true && today.minute() % 5 == 0) {
+        const kafka = connectKafka();
+        const min5ago = today.clone().subtract(5, 'minutes');
+        const sinceDt = today.clone().subtract(3, 'days');
+        const rules = await strapi.query('symbol').find({ last_searched_on_gt: sinceDt.format('YYYY-MM-DD HH:mm:ss.000Z') });
         rules.forEach(async rule => {
-          await summarizeTweets(rule.symbol, today, "min5");
-          await getTweets(rule.symbol, rule.tweet_tweeted_on, today);
+          await summarizeTweets(rule, min5ago, "min5");
+          await getTweets(kafka, rule, today);
         });
+        console.log('get tweets ', rules.length);
       }
-      console.log('get tweets ', rules.length);
     } catch (ex) {
       console.log('cron - 5 minutes, error: ', ex);
       strapi.log.error('coron - 5 minutes, error: ', ex);
