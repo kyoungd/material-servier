@@ -1,5 +1,6 @@
 const axios = require('axios');
 const { Kafka } = require('kafkajs');
+const xml2js = require('xml2js');
 const { default: createStrapi } = require('strapi');
 const { sanitizeEntity } = require('strapi-utils');
 const moment = require('moment');
@@ -185,28 +186,33 @@ async function summarizeTweetGroup(symbol, ruleType, since_dt, until_dt) {
     }
 }
 
-async function summarizeTweetSteps(symbol, ruleType, since_dt, numMinutes, today) {
+async function summarizeTimeSeriesSteps(symbol, ruleType, since_dt, numMinutes, today, saveDataFunc) {
     let until_dt = since_dt.clone().add(numMinutes, "minutes");
     const timeNow = today.clone().subtract(1, "minutes");
     while (since_dt <= timeNow) {
-        await summarizeTweetGroup(symbol, ruleType, since_dt, until_dt);
+        await saveDataFunc(symbol, ruleType, since_dt, until_dt);
         since_dt.add(numMinutes, "minutes");
         until_dt.add(numMinutes, "minutes");
     }
     return until_dt;
 }
 
-async function summarizeTweets(rule, today, ruleType) {
+function getRuleMinutes(ruleType) {
+    const numMinutes = ruleType == 'min5' ? 5 :
+        ruleType == 'min10' ? 10 :
+            ruleType == 'min30' ? 30 :
+                ruleType == 'hour1' ? 60 :
+                    ruleType == 'hour4' ? 240 :
+                        ruleType == 'day1' ? 1440 :
+                            ruleType == 'week1' ? 10080 : 0;
+    return numMinutes;
+}
+
+async function summarizeTimeSeries(rule, today, ruleType, saveDataFunc) {
     try {
-        const numMinutes = ruleType == 'min5' ? 5 :
-            ruleType == 'min10' ? 10 :
-                ruleType == 'min30' ? 30 :
-                    ruleType == 'hour1' ? 60 :
-                        ruleType == 'hour4' ? 240 :
-                            ruleType == 'day1' ? 1440 :
-                                ruleType == 'week1' ? 10080 : 0;
+        const numMinutes = getRuleMinutes(ruleType);
         const lastSummaryOn = rule.tweet_summary_on === null ? moment().subtract(72, 'hours') : moment(rule.tweet_summary_on);
-        const until_dt = await summarizeTweetSteps(rule.symbol, ruleType, lastSummaryOn, numMinutes, today);
+        const until_dt = await summarizeTweetSteps(rule.symbol, ruleType, lastSummaryOn, numMinutes, today, saveDataFunc);
         rule.tweet_summary_on = until_dt.toDate();
         await strapi.query('symbol').update({ id: rule.id }, rule);
         return true;
@@ -219,5 +225,108 @@ async function summarizeTweets(rule, today, ruleType) {
     }
 }
 
+async function summarizeTweets(rule, today, ruleType) {
+    await summarizeTimeSeries(rule, today, ruleType, summarizeTweetGroup)
+}
 
-module.exports = { connectKafka, getThinkScript, getCompanyVitals, getTweets, summarizeTweets };
+async function postNews(kafka, symbol, news) {
+    try {
+        // console.log('start make new heart rate date point');
+        const value = {
+            "symbol": symbol,
+            "description": news.description,
+            "link": news.link,
+            "guid": news.guid,
+            "pub_date": moment(news.pubDate).format('YYYY-MM-DD HH:mm:ss'),
+            "title": news.title
+        }
+        const message = {
+            "topic": "TWEET",
+            "messages": [{
+                "key": "YAHOO_NEWS",
+                "value": JSON.stringify(value),
+                "partition": 0,
+            }]
+        }
+        await postKafkaCommand(kafka, message);
+        return true;
+    } catch (ex) {
+        console.log('getTweets, error: ', ex);
+        strapi.log.error('getTweets, error: ', ex);
+    }
+}
+
+async function getYahooNews(kafka, rule) {
+    const url = `https://feeds.finance.yahoo.com/rss/2.0/headline?s=${rule.symbol}&region=US&lang=en-US`;
+    const result = await axios.get(url);
+    xml2js.parseString(result.data, (err, result) => {
+        try {
+            if (err) {
+                throw err;
+            }
+            const news = result.rss.channel[0].item;
+            news.forEach(async item => {
+                if (item.pubDate >= rule.tweet_summary_on)
+                    await postNews(kafka, rule.symbol, item);
+            });
+        }
+        catch (ex) {
+            console.log('getYahooNews, error: ', ex);
+            strapi.log.error('getYahooNews, error: ', ex);
+        }
+        // console.log(news);
+    });
+}
+
+async function yahooNews(kafka, rule) {
+    try {
+        await getYahooNews(kafka, rule);
+    }
+    catch (ex) {
+        console.log('yahooNews, error: ', ex);
+        strapi.log.error('yahooNews, error: ', ex);
+    }
+}
+
+async function saveSummarizeYahooNews(symbol, ruleType, since_dt, until_dt) {
+    try {
+        const result = await strapi.query('site-yahoo').find({
+            'symbol': symbol,
+            'pub_date_gte': since_dt.format('YYYY-MM-DD HH:mm:ss'),
+            'pub_date_lt': until_dt.format('YYYY-MM-DD HH:mm:ss')
+        });
+        if (result.length > 0) {
+            const score = _.meanBy(result, p => p.sentiment === null ? 0 : p.sentiment);
+            await strapi.services['news-summary'].create({
+                symbol,
+                summary_type: ruleType,
+                pub_date: until_dt.toDate(),
+                news_count: result.length,
+                news_score: score,
+                source: 'YAHOO',
+            });
+        }
+        else {
+            await strapi.services['news-summary'].create({
+                symbol,
+                summary_type: ruleType,
+                pub_date: until_dt.toDate(),
+                news_count: 0,
+                news_score: 0,
+                source: 'YAHOO',
+            });
+        }
+        return true;
+    }
+    catch (ex) {
+        console.log('summarizeTweetGroup, info: ', ex);
+        strapi.log.info('summarizeTweetGroup, info: ', ex);
+        return false;
+    }
+}
+
+async function summarizeYahooNews(rule, today, ruleType) {
+    await summarizeTimeSeries(rule, today, ruleType, saveSummarizeYahooNews)
+}
+
+module.exports = { connectKafka, getThinkScript, getCompanyVitals, getTweets, summarizeTweets, yahooNews, summarizeYahooNews };

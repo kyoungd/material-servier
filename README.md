@@ -64,3 +64,15 @@ sudo docker-compose up
 
 sudo docker build -t material-api .
 docker tun -it -p 5000:5000 material-api
+
+### -------------SCRIPT TO RESET DATABASE TWEET/NEWS
+
+DELETE FROM public.tweets;
+delete from public.tweet_summaries;
+delete from public.site_yahoos;
+delete from public.news_summaries;
+update public.symbos set
+last_searched_on = null,
+tweet_searched_on = null,
+tweet_tweeted_on = null,
+tweet_summary_on = null

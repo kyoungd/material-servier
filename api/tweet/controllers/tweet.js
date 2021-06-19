@@ -16,7 +16,7 @@ module.exports = {
             entities = await strapi.query('tweet').find(ctx.query);
         }
 
-        const data = entities.map(entity => ({ id: entity.id, tweet_dt: entity.tweet_dt, tweet_text: entity.tweet_text }));
+        const data = entities.map(entity => ({ id: entity.id, tweet_dt: entity.tweet_dt, tweet_text: entity.tweet_text, sentiment_score: entity.sentiment_score }));
         return { [ctx.query.symbol]: data }
     },
 

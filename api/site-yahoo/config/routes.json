@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/site-yahoos",
+      "handler": "site-yahoo.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/site-yahoos/count",
+      "handler": "site-yahoo.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/site-yahoos/:id",
+      "handler": "site-yahoo.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/site-yahoos",
+      "handler": "site-yahoo.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/site-yahoos/:id",
+      "handler": "site-yahoo.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/site-yahoos/:id",
+      "handler": "site-yahoo.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

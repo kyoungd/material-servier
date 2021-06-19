@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "news_summaries",
+  "info": {
+    "name": "NewsSummary"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "symbol": {
+      "type": "string"
+    },
+    "pub_date": {
+      "type": "datetime"
+    },
+    "summary_type": {
+      "type": "enumeration",
+      "enum": [
+        "min5",
+        "min10",
+        "min30",
+        "hour1",
+        "hour4",
+        "day1"
+      ]
+    },
+    "news_count": {
+      "type": "integer"
+    },
+    "news_score": {
+      "type": "float"
+    }
+  }
+}

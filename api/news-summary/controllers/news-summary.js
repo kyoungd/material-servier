@@ -1,4 +1,3 @@
-'use strict';
 
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)
@@ -16,16 +15,15 @@ module.exports = {
      * @return {Object}
      */
 
-
     async find(ctx) {
         let entities;
         if (ctx.query._q) {
-            entities = await strapi.query('tweet-summary').search(ctx.query);
+            entities = await strapi.query('news-summary').search(ctx.query);
         } else {
-            entities = await strapi.query('tweet-summary').find(ctx.query);
+            entities = await strapi.query('news-summary').find(ctx.query);
         }
 
-        const data = entities.map(entity => ({ pubDateTime: entity.tweet_dt, viewCount: entity.tweet_count, sentiment: entity.tweet_score }));
+        const data = entities.map(entity => ({ pubDateTime: entity.pub_date, viewCount: entity.news_count, sentiment: entity.news_score }));
         return { [ctx.query.symbol]: data }
     },
 
@@ -34,11 +32,11 @@ module.exports = {
     //         const today = new moment();
     //         const { symbol } = ctx.query;
     //         const since = today.subtract(48, 'hours');
-    //         const results = await strapi.query('tweet-summary').find({
+    //         const results = await strapi.query('news-summary').find({
     //             'symbol': symbol,
     //             'tweet_dt_gte': since.format('YYYY-MM-DD HH:00:00')
     //         });
-    //         return results.map(entity => sanitizeEntity(entity, { model: strapi.models['tweet-summary'] }));
+    //         return results.map(entity => sanitizeEntity(entity, { model: strapi.models['news-summary'] }));
     //     }
     //     catch (err) {
     //         console.log(err);

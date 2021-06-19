@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "site_yahoos",
+  "info": {
+    "name": "SiteYahoo",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "guid": {
+      "type": "uid"
+    },
+    "description": {
+      "type": "string"
+    },
+    "link": {
+      "type": "string"
+    },
+    "pubDate": {
+      "type": "datetime"
+    },
+    "title": {
+      "type": "string"
+    },
+    "sentiment": {
+      "type": "float"
+    },
+    "symbol": {
+      "type": "string"
+    },
+    "pub_date": {
+      "type": "datetime"
+    }
+  }
+}

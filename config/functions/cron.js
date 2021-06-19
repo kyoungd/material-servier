@@ -1,7 +1,7 @@
 'use strict';
 
 const moment = require('moment');
-const { connectKafka, getTweets, summarizeTweets } = require('../util');
+const { connectKafka, getTweets, summarizeTweets, yahooNews, summarizeYahooNews } = require('../util');
 
 // const { default: createStrapi } = require('strapi');
 
@@ -30,13 +30,29 @@ module.exports = {
       //   'tweet_dt_lt': today.format('YYYY-MM-DD HH:mm:ss')
       // });
 
-      if (true && today.minute() % 5 == 0) {
+      const sinceDt = today.clone().subtract(3, 'days');
+      const query = {
+        _where: {
+          _or:
+            [
+              { last_searched_on_gt: sinceDt.format('YYYY-MM-DD HH:mm:ss.000Z') },
+              { last_searched_on_null: true },
+            ]
+        }
+      }
+      const rules = await strapi.query('symbol').find(query);
+      rules.forEach(async rule => {
+        await yahooNews(kafka, rule);
+      });
+      if (false && today.minute() % 5 == 0) {
         const kafka = connectKafka();
         const min5ago = today.clone().subtract(5, 'minutes');
         const sinceDt = today.clone().subtract(3, 'days');
         const rules = await strapi.query('symbol').find({ last_searched_on_gt: sinceDt.format('YYYY-MM-DD HH:mm:ss.000Z') });
         rules.forEach(async rule => {
+          await summarizeYahooNews(rule, min5ago, "min5");
           await summarizeTweets(rule, min5ago, "min5");
+          await yahooNews(kafka, rule);
           await getTweets(kafka, rule, today);
         });
         console.log('get tweets ', rules.length);
