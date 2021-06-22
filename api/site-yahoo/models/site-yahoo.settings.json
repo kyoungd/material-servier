@@ -15,7 +15,7 @@
       "type": "uid"
     },
     "description": {
-      "type": "string"
+      "type": "text"
     },
     "link": {
       "type": "string"

@@ -212,9 +212,7 @@ async function summarizeTimeSeries(rule, today, ruleType, saveDataFunc) {
     try {
         const numMinutes = getRuleMinutes(ruleType);
         const lastSummaryOn = rule.tweet_summary_on === null ? moment().subtract(72, 'hours') : moment(rule.tweet_summary_on);
-        const until_dt = await summarizeTweetSteps(rule.symbol, ruleType, lastSummaryOn, numMinutes, today, saveDataFunc);
-        rule.tweet_summary_on = until_dt.toDate();
-        await strapi.query('symbol').update({ id: rule.id }, rule);
+        const until_dt = await summarizeTimeSeriesSteps(rule.symbol, ruleType, lastSummaryOn, numMinutes, today, saveDataFunc);
         return true;
         // rule.tweet_summary_on = until_dt.toDate();
         // await strapi.services.symbol.update(rule);
@@ -234,25 +232,27 @@ async function postNews(kafka, symbol, news) {
         // console.log('start make new heart rate date point');
         const value = {
             "symbol": symbol,
-            "description": news.description,
-            "link": news.link,
-            "guid": news.guid,
-            "pub_date": moment(news.pubDate).format('YYYY-MM-DD HH:mm:ss'),
-            "title": news.title
+            "description": news.description[0],
+            "link": news.link[0],
+            "guid": news.guid[0]._,
+            "pub_date": moment(news.pubDate[0]).format('YYYY-MM-DD HH:mm:ss.000Z'),
+            "title": news.title[0]
         }
+        const result = await strapi.services['site-yahoo'].create(value);
+        const data = { id: result.id, ...value }
         const message = {
             "topic": "TWEET",
             "messages": [{
                 "key": "YAHOO_NEWS",
-                "value": JSON.stringify(value),
+                "value": JSON.stringify(data),
                 "partition": 0,
             }]
         }
         await postKafkaCommand(kafka, message);
         return true;
     } catch (ex) {
-        console.log('getTweets, error: ', ex);
-        strapi.log.error('getTweets, error: ', ex);
+        console.log('postNews, error: ', ex);
+        strapi.log.error('postNews, error: ', ex);
     }
 }
 
@@ -266,8 +266,9 @@ async function getYahooNews(kafka, rule) {
             }
             const news = result.rss.channel[0].item;
             news.forEach(async item => {
-                if (item.pubDate >= rule.tweet_summary_on)
-                    await postNews(kafka, rule.symbol, item);
+                await postNews(kafka, rule.symbol, item);
+                // if (item.pubDate >= rule.tweet_summary_on || rule.tweet_summary_on === null)
+                //     await postNews(kafka, rule.symbol, item);
             });
         }
         catch (ex) {
