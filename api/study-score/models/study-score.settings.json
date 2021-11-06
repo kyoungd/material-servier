@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "study_scores",
+  "info": {
+    "name": "StudyScore"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "scoredAt": {
+      "type": "datetime"
+    },
+    "symbol": {
+      "type": "string"
+    },
+    "timeframe": {
+      "type": "string"
+    },
+    "point": {
+      "type": "integer"
+    },
+    "studyType": {
+      "type": "string"
+    },
+    "isPublish": {
+      "type": "boolean"
+    }
+  }
+}

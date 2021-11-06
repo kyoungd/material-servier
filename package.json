@@ -12,6 +12,7 @@
   },
   "devDependencies": {},
   "dependencies": {
+    "async-redis": "^2.0.0",
     "axios": "^0.21.1",
     "google-news-scraper": "^1.0.7",
     "kafkajs": "^1.15.0",
