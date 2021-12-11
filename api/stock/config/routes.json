@@ -10,6 +10,22 @@
     },
     {
       "method": "GET",
+      "path": "/stocks/stacks",
+      "handler": "stock.stacks",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/stocks/scores",
+      "handler": "stock.scores",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/stocks/count",
       "handler": "stock.count",
       "config": {
