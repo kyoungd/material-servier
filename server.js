@@ -1,4 +1,4 @@
-// File to start node server.js
+// File to start node server.js normally
 
 const strapi = require('strapi');
 
