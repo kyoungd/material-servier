@@ -1,4 +1,4 @@
-name: CI/CD material-servier app
+name: CI/CD material-servier app.
 
 on:
   push:
